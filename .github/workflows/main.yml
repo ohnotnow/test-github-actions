@@ -30,7 +30,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          target: qa
+          target: ci
           platforms: linux/amd64,linux/arm/v7
           push: true
           build-args: PHP_VERSION=7.4
