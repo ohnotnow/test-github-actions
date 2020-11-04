@@ -38,10 +38,11 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
 
-  multi:
+  test:
     needs: build-qa-image
     runs-on: ubuntu-latest
-    container: ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
+    container: |
+      ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
     steps:
       -
         name: phpunit
