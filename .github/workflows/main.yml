@@ -48,6 +48,6 @@ jobs:
         name: phpunit
         run: |
           cd /var/www/html/
-          cp .env.gitlab .env
+          cp -f .env.gitlab .env
           php artisan key:generate
           ./vendor/bin/phpunit
