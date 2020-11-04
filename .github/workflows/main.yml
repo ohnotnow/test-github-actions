@@ -46,14 +46,14 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-qa:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-qa:${GITHUB_SHA}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-qa:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-qa:${{ github.sha }}
 
   test:
     needs: build-qa-image
     runs-on: ubuntu-latest
     container:
-      image: uogsoe/${GITHUB_REPOSITORY}-qa:${GITHUB_SHA}
+      image: uogsoe/${{ github.repository }}-qa:${{ github.sha }}
     steps:
       -
         name: phpunit
@@ -105,4 +105,4 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-prod:${GITHUB_SHA}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository}}-prod:${{ github.sha }}
