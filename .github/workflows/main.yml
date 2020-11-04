@@ -49,4 +49,5 @@ jobs:
         run: |
           cd /var/www/html/
           cp .env.gitlab .env
+          php artisan key:generate
           ./vendor/bin/phpunit
