@@ -46,4 +46,7 @@ jobs:
     steps:
       -
         name: phpunit
-        run: ./vendor/bin/phpunit
+        run: |
+          cd /var/www/html/
+          cp .env.gitlab .env
+          ./vendor/bin/phpunit
