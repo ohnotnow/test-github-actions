@@ -42,18 +42,18 @@ jobs:
           target: ci
           platforms: linux/amd64,linux/arm/v7
           push: true
-          build-args: PHP_VERSION=7.4
+          build-args: PHP_VERSION=${{ secrets.PHP_VERSION }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
+            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-qa:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-qa:${GITHUB_SHA}
 
   test:
     needs: build-qa-image
     runs-on: ubuntu-latest
     container:
-      image: ohffs/test-gh-actions:1.0.0
+      image: uogsoe/${GITHUB_REPOSITORY}-qa:${GITHUB_SHA}
     steps:
       -
         name: phpunit
@@ -101,9 +101,8 @@ jobs:
           target: prod
           platforms: linux/amd64,linux/arm/v7
           push: true
-          build-args: PHP_VERSION=7.4
+          build-args: PHP_VERSION=${{ secrets.PHP_VERSION }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
+            ${{ secrets.DOCKERHUB_USERNAME }}/${GITHUB_REPOSITORY}-prod:${GITHUB_SHA}
