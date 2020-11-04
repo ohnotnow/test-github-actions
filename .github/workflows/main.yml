@@ -43,5 +43,5 @@ jobs:
     container: ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
     steps:
       -
-      name: phpunit
-      run: ./vendor/bin/phpunit
+        name: phpunit
+        run: ./vendor/bin/phpunit
