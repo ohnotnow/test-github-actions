@@ -37,11 +37,11 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
 
-    multi:
-        needs: build-qa-image
-        runs-on: ubuntu-latest
-        container: ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
-        steps:
-            -
-            name: phpunit
-            run: ./vendor/bin/phpunit
+  multi:
+    needs: build-qa-image
+    runs-on: ubuntu-latest
+    container: ${{ secrets.DOCKERHUB_USERNAME }}/test-gh-actions:1.0.0
+    steps:
+      -
+      name: phpunit
+      run: ./vendor/bin/phpunit
