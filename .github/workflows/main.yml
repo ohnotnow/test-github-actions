@@ -5,7 +5,7 @@ on:
     branches: main
 
 env:
-  DOCKERHUB_USERNAME: ${{ DOCKERHUB_USERNAME }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
 jobs:
   build-qa-image:
