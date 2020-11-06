@@ -53,7 +53,7 @@ jobs:
     needs: build-qa-image
     runs-on: ubuntu-latest
     container:
-      image: uogsoe/${{ github.repository }}-qa:${{ github.sha }}
+      image: uogsoe/${{ github.event.repository.name }}-qa:${{ github.sha }}
     steps:
       -
         name: phpunit
