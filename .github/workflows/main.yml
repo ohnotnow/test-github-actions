@@ -54,8 +54,8 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${LATEST_IMAGE_NAME}
-            ${QA_IMAGE_NAME}
+            $LATEST_IMAGE_NAME
+            $QA_IMAGE_NAME
 
   test:
     needs: build-qa-image
