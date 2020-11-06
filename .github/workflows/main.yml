@@ -30,6 +30,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       -
+        name: Echo some env variables
+        run: echo "${LATEST_IMAGE_NAME} ${QA_IMAGE_NAME}"
+
+      -
         name: Cache Docker layers
         uses: actions/cache@v2
         with:
