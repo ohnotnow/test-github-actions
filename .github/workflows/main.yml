@@ -5,9 +5,9 @@ on:
     branches: main
 
 env:
-  PROD_IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-prod:${{ github.sha }}
-  QA_IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-qa:${{ github.sha }}
-  LATEST_IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
+  PROD_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-prod:${{ github.sha }}
+  QA_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-qa:${{ github.sha }}
+  LATEST_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
 
 jobs:
   build-qa-image:
