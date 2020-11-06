@@ -4,9 +4,6 @@ on:
   push:
     branches: main
 
-env:
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-
 jobs:
   build-qa-image:
     runs-on: ubuntu-latest
@@ -55,7 +52,7 @@ jobs:
     needs: build-qa-image
     runs-on: ubuntu-latest
     container:
-      image: $DOCKERHUB_USERNAME/${{ github.event.repository.name }}-qa:${{ github.sha }}
+      image: ohffs/${{ github.event.repository.name }}-qa:${{ github.sha }}
     steps:
       -
         name: phpunit
