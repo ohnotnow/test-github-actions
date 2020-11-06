@@ -46,8 +46,8 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-qa:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-qa:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-qa:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-qa:${{ github.sha }}
 
   test:
     needs: build-qa-image
@@ -105,4 +105,19 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository}}-prod:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-prod:${{ github.sha }}
+
+  # deploy-prod-image:
+  #   runs-on: ubuntu-latest
+  #   needs: build-prod-image
+  #   run: |
+  #     eval $(ssh-agent -s)
+  #     mkdir ~/.ssh
+  #     chmod 700 ~/.ssh
+  #     ssh-keyscan ${{ secrets.PROD_SERVER }} > ~/.ssh/known_hosts
+  #     chmod 644 ~/.ssh/known_hosts
+  #     echo "${{ secrets.PROD_SSH_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+  #     export NOW=`date +%Y-%m-%d-%H-%M-%S`
+  #     export DOTENV_NAME="${{ github.event.repository.name }}-prod-dotenv-${NOW}"
+  #     export DOCKER_HOST=ssh://${{ secrets.DEPLOY_USER }}@${{ secrets.PROD_SERVER }}
+  #     echo "${{ secrets.PROD_DOTENV }}" | docker secret create ${DOTENV_NAME} -
